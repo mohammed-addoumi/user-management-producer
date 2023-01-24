@@ -1,0 +1,27 @@
+{
+  "name": "UserEvent",
+  "namespace": "com.usermanagement.usermanagementproducer.events",
+  "type": "record",
+  "fields": [
+    {
+      "name": "userId",
+      "type": ["null","long"],
+      "default": null
+    },
+    {
+      "name": "userName",
+      "type": ["null","string"],
+      "default": null
+    },
+    {
+      "name": "userEmail",
+      "type": ["null","string"],
+      "default": null
+    },
+    {
+      "name": "password",
+      "type": ["null","string"],
+      "default": null
+    }
+  ]
+}

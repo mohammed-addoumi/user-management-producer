@@ -1,14 +1,20 @@
 package com.usermanagement.usermanagementproducer.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.usermanagement.usermanagementproducer.events.UserEvent;
 import com.usermanagement.usermanagementproducer.models.User;
+import com.usermanagement.usermanagementproducer.producers.UserEventProducer;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -21,6 +27,15 @@ class UserControllerTest {
     MockMvc mockMvc;
 
     ObjectMapper objectMapper = new ObjectMapper();
+
+    @MockBean
+    private UserEventProducer userEventProducer;
+
+
+    @BeforeEach
+    void setUp(){
+        doNothing().when(userEventProducer).sendUserEvent(any(UserEvent.class));
+    }
 
     @Test
     void should_get_all_users() throws Exception {
